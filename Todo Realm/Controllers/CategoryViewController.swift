@@ -19,6 +19,7 @@ class CategoryViewController: UITableViewController {
         categories = ["start", "second", "save the world!"]
         
     }
+    
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "Add Category", message: "", preferredStyle: .alert)

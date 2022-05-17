@@ -15,11 +15,7 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
 
         todoListArray = ["apple", "peach"]
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         
@@ -57,5 +53,27 @@ class TodoListViewController: UITableViewController {
         cell.contentConfiguration = content
         return cell
     }
+    
+    // MARK: - Table view delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
 
+        cell.isSelected = false
+    }
+
+}
+
+// MARK: - UISearchBarDelegate
+
+extension TodoListViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
 }
