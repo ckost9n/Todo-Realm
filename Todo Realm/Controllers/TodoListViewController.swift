@@ -6,15 +6,24 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TodoListViewController: UITableViewController {
     
-    private var todoListArray: [String] = []
+    private var realm = try! Realm()
+    
+    private var todoItems: Results<Item>?
+    
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        todoListArray = ["apple", "peach"]
+        
         
     }
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
@@ -25,9 +34,16 @@ class TodoListViewController: UITableViewController {
             guard let self = self else { return }
             
             guard let text = alert.textFields?.first?.text else { return }
-            
-            self.todoListArray.append(text)
-            
+            guard let selectedCategory = self.selectedCategory else { return }
+            do {
+                try self.realm.write {
+                    let newItem = Item()
+                    newItem.title = text
+                    selectedCategory.items.append(newItem)
+                }
+            } catch {
+                print("Error saving new items, \(error)")
+            }
             self.tableView.reloadData()
         }
         alert.addTextField { $0.placeholder = "Create new item" }
@@ -39,7 +55,7 @@ class TodoListViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoListArray.count
+        return todoItems?.count ?? 1
     }
 
     
@@ -47,8 +63,8 @@ class TodoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
 
-        let model = todoListArray[indexPath.row]
-        content.text = model
+        let model = todoItems?[indexPath.row]
+        content.text = model?.title
 
         cell.contentConfiguration = content
         return cell
@@ -57,9 +73,11 @@ class TodoListViewController: UITableViewController {
     // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        
 
-        cell.isSelected = false
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }
@@ -74,6 +92,18 @@ extension TodoListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
+    }
+    
+}
+
+extension TodoListViewController {
+    
+    private func save(item: Item) {
+        
+    }
+    
+    private func loadItems() {
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
     }
     
 }

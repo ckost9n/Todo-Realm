@@ -15,6 +15,8 @@
 		3C7905DD2833B2320044ADC3 /* Extension + NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905DC2833B2320044ADC3 /* Extension + NavigationBar.swift */; };
 		3C7905DF2833B3210044ADC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7905DE2833B3200044ADC3 /* Main.storyboard */; };
 		3C7905E12833B3B30044ADC3 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905E02833B3B30044ADC3 /* TodoListViewController.swift */; };
+		3C7905E9283404E20044ADC3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905E8283404E20044ADC3 /* Item.swift */; };
+		3C7905EB283404EF0044ADC3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905EA283404EF0044ADC3 /* Category.swift */; };
 		E1F968D63E3CED74D8BF2C56 /* Pods_Todo_Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B40A5D183D9ECE6D33EEB1 /* Pods_Todo_Realm.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		3C7905DC2833B2320044ADC3 /* Extension + NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + NavigationBar.swift"; sourceTree = "<group>"; };
 		3C7905DE2833B3200044ADC3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3C7905E02833B3B30044ADC3 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		3C7905E8283404E20044ADC3 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		3C7905EA283404EF0044ADC3 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		44C7BFF2747C069E774E34B8 /* Pods-Todo Realm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todo Realm.debug.xcconfig"; path = "Target Support Files/Pods-Todo Realm/Pods-Todo Realm.debug.xcconfig"; sourceTree = "<group>"; };
 		9F77CFEA7549EDCE69326DEF /* Pods-Todo Realm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todo Realm.release.xcconfig"; path = "Target Support Files/Pods-Todo Realm/Pods-Todo Realm.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +73,7 @@
 			children = (
 				3C7905C82833B1D60044ADC3 /* AppDelegate.swift */,
 				3C7905CA2833B1D60044ADC3 /* SceneDelegate.swift */,
+				3C7905E72834036B0044ADC3 /* Data Model */,
 				3C7905E22833B3BE0044ADC3 /* Controllers */,
 				3C7905E32833B3CA0044ADC3 /* Views */,
 				3C7905E42833B3D90044ADC3 /* Supprting files */,
@@ -104,6 +109,15 @@
 			path = "Supprting files";
 			sourceTree = "<group>";
 		};
+		3C7905E72834036B0044ADC3 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				3C7905E8283404E20044ADC3 /* Item.swift */,
+				3C7905EA283404EF0044ADC3 /* Category.swift */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
 		43042F38DDFCA30AE51F1B42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +132,6 @@
 				44C7BFF2747C069E774E34B8 /* Pods-Todo Realm.debug.xcconfig */,
 				9F77CFEA7549EDCE69326DEF /* Pods-Todo Realm.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -240,8 +253,10 @@
 				3C7905CD2833B1D60044ADC3 /* CategoryViewController.swift in Sources */,
 				3C7905C92833B1D60044ADC3 /* AppDelegate.swift in Sources */,
 				3C7905CB2833B1D60044ADC3 /* SceneDelegate.swift in Sources */,
+				3C7905E9283404E20044ADC3 /* Item.swift in Sources */,
 				3C7905DD2833B2320044ADC3 /* Extension + NavigationBar.swift in Sources */,
 				3C7905E12833B3B30044ADC3 /* TodoListViewController.swift in Sources */,
+				3C7905EB283404EF0044ADC3 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
