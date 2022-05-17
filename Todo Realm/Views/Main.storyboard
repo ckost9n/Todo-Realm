@@ -31,7 +31,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Category" id="fi4-qO-8p5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1aL-2p-d2w"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1aL-2p-d2w">
+                            <connections>
+                                <action selector="addButtonAction:" destination="9vP-XC-ivj" id="8ba-0c-ZBa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="Pby-km-irC" kind="show" identifier="goToTaskListVC" id="QOz-VZ-zq1"/>
@@ -70,7 +74,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks List" id="i1F-NC-ETc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="q74-CL-onj"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="q74-CL-onj">
+                            <connections>
+                                <action selector="addButtonAction:" destination="Pby-km-irC" id="186-PP-01M"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TM3-Ah-nP2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

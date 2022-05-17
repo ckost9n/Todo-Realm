@@ -21,7 +21,25 @@ class TodoListViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: "Add todo list", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add new element", style: .default) { [weak self] action in
+            guard let self = self else { return }
+            
+            guard let text = alert.textFields?.first?.text else { return }
+            
+            self.todoListArray.append(text)
+            
+            self.tableView.reloadData()
+        }
+        alert.addTextField { $0.placeholder = "Create new item" }
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
