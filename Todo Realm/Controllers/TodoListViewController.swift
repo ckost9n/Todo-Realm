@@ -26,6 +26,7 @@ class TodoListViewController: UITableViewController {
         
         
     }
+    
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "Add todo list", message: "", preferredStyle: .alert)
@@ -63,8 +64,11 @@ class TodoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
 
-        let model = todoItems?[indexPath.row]
-        content.text = model?.title
+        if let model = todoItems?[indexPath.row] {
+            content.text = model.title
+            
+            cell.accessoryType = model.done ? .checkmark : .none
+        }
 
         cell.contentConfiguration = content
         return cell
@@ -75,7 +79,9 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
+        guard let item = todoItems?[indexPath.row] else { return }
         
+        doneTogle(item: item)
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -98,12 +104,31 @@ extension TodoListViewController: UISearchBarDelegate {
 
 extension TodoListViewController {
     
-    private func save(item: Item) {
-        
+    private func deleteItem(item: Item) {
+        do {
+            try realm.write {
+                realm.delete(item)
+            }
+        } catch {
+            print("Error delete, \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    private func doneTogle(item: Item) {
+        do {
+            try realm.write {
+                item.done.toggle()
+            }
+        } catch {
+            print("Error saving done status, \(error)")
+        }
+        tableView.reloadData()
     }
     
     private func loadItems() {
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        tableView.reloadData()
     }
     
 }
