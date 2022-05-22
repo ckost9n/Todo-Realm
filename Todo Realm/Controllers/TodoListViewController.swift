@@ -23,7 +23,7 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
     }
     
@@ -117,6 +117,8 @@ extension TodoListViewController: UISearchBarDelegate {
     }
     
 }
+
+// MARK: - Model Manupulation Method
 
 extension TodoListViewController {
     

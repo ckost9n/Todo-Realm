@@ -74,8 +74,8 @@
 				3C7905C82833B1D60044ADC3 /* AppDelegate.swift */,
 				3C7905CA2833B1D60044ADC3 /* SceneDelegate.swift */,
 				3C7905E72834036B0044ADC3 /* Data Model */,
-				3C7905E22833B3BE0044ADC3 /* Controllers */,
 				3C7905E32833B3CA0044ADC3 /* Views */,
+				3C7905E22833B3BE0044ADC3 /* Controllers */,
 				3C7905E42833B3D90044ADC3 /* Supprting files */,
 				3C7905D62833B1DA0044ADC3 /* Info.plist */,
 			);
@@ -112,8 +112,8 @@
 		3C7905E72834036B0044ADC3 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				3C7905E8283404E20044ADC3 /* Item.swift */,
 				3C7905EA283404EF0044ADC3 /* Category.swift */,
+				3C7905E8283404E20044ADC3 /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";

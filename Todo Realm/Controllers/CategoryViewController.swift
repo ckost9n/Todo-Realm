@@ -27,7 +27,7 @@ class CategoryViewController: UITableViewController {
         
         let alert = UIAlertController(title: "Add Category", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add new category", style: .default) { [weak self] action in
+        let action = UIAlertAction(title: "Add", style: .default) { [weak self] action in
             guard let self = self else { return }
             
             guard let text = alert.textFields?.first?.text else { return }
@@ -68,6 +68,8 @@ extension CategoryViewController {
     }
     
 }
+
+// MARK: - TableView delegate method and navigation segue
 
 extension CategoryViewController {
     
