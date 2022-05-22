@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class TodoListViewController: UITableViewController {
     
@@ -24,6 +25,8 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
 
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+        tableView.rowHeight = 60
         
     }
     
@@ -62,9 +65,10 @@ class TodoListViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         var content = cell.defaultContentConfiguration()
-
+        
         if let model = todoItems?[indexPath.row] {
             content.text = model.title
             
@@ -87,6 +91,43 @@ class TodoListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+}
+
+// MARK: - SwipeTableViewCellDelegate
+
+extension TodoListViewController: SwipeTableViewCellDelegate {
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
+            guard let self = self else { return }
+            guard let currentItem = self.todoItems?[indexPath.row] else { return }
+            
+            self.deleteItem(item: currentItem)
+        }
+        
+        deleteAction.image = UIImage(named: "Trash")
+        
+        return [deleteAction]
+    }
+    
+//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {
+//        <#code#>
+//    }
+//
+//    func visibleRect(for tableView: UITableView) -> CGRect? {
+//        <#code#>
+//    }
+    
 }
 
 // MARK: - UISearchBarDelegate

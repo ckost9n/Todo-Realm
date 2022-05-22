@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class CategoryViewController: UITableViewController {
     
@@ -18,6 +19,8 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.setupNavigationBar()
+        
+        tableView.rowHeight = 80
         
         loadCategories()
         
@@ -57,7 +60,9 @@ extension CategoryViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoriesCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoriesCell", for: indexPath) as! SwipeTableViewCell
+        
+        cell.delegate = self
         var content = cell.defaultContentConfiguration()
         
         let model = categories?[indexPath.row]
@@ -66,6 +71,43 @@ extension CategoryViewController {
         cell.contentConfiguration = content
         return cell
     }
+    
+}
+
+// MARK: - SwipeTableViewCellDelegate
+
+extension CategoryViewController: SwipeTableViewCellDelegate {
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
+            guard let self = self else { return }
+            guard let currentCategory = self.categories?[indexPath.row] else { return }
+            
+            self.deleteCategories(category: currentCategory)
+        }
+        
+        deleteAction.image = UIImage(named: "Trash")
+        
+        return [deleteAction]
+    }
+    
+//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {
+//        <#code#>
+//    }
+//
+//    func visibleRect(for tableView: UITableView) -> CGRect? {
+//        <#code#>
+//    }
     
 }
 
@@ -99,6 +141,17 @@ extension CategoryViewController {
             print("Error saving category \(error)")
         }
  
+        tableView.reloadData()
+    }
+    
+    private func deleteCategories(category: Category) {
+        do {
+            try realm.write {
+                realm.delete(category)
+            }
+        } catch {
+            print("Error delete, \(error)")
+        }
         tableView.reloadData()
     }
     
