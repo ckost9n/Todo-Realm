@@ -40,6 +40,7 @@ class TodoListViewController: UITableViewController {
                 try self.realm.write {
                     let newItem = Item()
                     newItem.title = text
+                    newItem.dateCreated = Date()
                     selectedCategory.items.append(newItem)
                 }
             } catch {
@@ -92,11 +93,26 @@ class TodoListViewController: UITableViewController {
 
 extension TodoListViewController: UISearchBarDelegate {
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
+        guard let text = searchBar.text else { return }
+        
+        todoItems = todoItems?
+            .filter("title CONTAINS[cd] %@", text)
+            .sorted(byKeyPath: "dateCreated", ascending: true)
+        
+        tableView.reloadData()
+           
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        guard searchBar.text?.count == 0 else { return }
+        loadItems()
+        
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+        }
         
     }
     
