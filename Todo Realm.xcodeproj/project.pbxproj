@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C002899283BD84000155250 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C002898283BD83F00155250 /* SwipeTableViewController.swift */; };
 		3C7905C92833B1D60044ADC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905C82833B1D60044ADC3 /* AppDelegate.swift */; };
 		3C7905CB2833B1D60044ADC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905CA2833B1D60044ADC3 /* SceneDelegate.swift */; };
 		3C7905CD2833B1D60044ADC3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7905CC2833B1D60044ADC3 /* CategoryViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		36B40A5D183D9ECE6D33EEB1 /* Pods_Todo_Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todo_Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C002898283BD83F00155250 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		3C7905C52833B1D60044ADC3 /* Todo Realm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo Realm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7905C82833B1D60044ADC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C7905CA2833B1D60044ADC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				3C7905CC2833B1D60044ADC3 /* CategoryViewController.swift */,
 				3C7905E02833B3B30044ADC3 /* TodoListViewController.swift */,
+				3C002898283BD83F00155250 /* SwipeTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C002899283BD84000155250 /* SwipeTableViewController.swift in Sources */,
 				3C7905CD2833B1D60044ADC3 /* CategoryViewController.swift in Sources */,
 				3C7905C92833B1D60044ADC3 /* AppDelegate.swift in Sources */,
 				3C7905CB2833B1D60044ADC3 /* SceneDelegate.swift in Sources */,

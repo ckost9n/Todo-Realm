@@ -7,9 +7,8 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     private let realm = try! Realm()
     
@@ -48,7 +47,11 @@ class CategoryViewController: UITableViewController {
         present(alert, animated: true)
     }
     
-
+    override func updateModel(at indexPath: IndexPath) {
+        guard let currentCategory = categories?[indexPath.row] else { return }
+        deleteCategories(category: currentCategory)
+    }
+    
 }
 
 // MARK: - Table view data source
@@ -60,9 +63,8 @@ extension CategoryViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoriesCell", for: indexPath) as! SwipeTableViewCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        cell.delegate = self
         var content = cell.defaultContentConfiguration()
         
         let model = categories?[indexPath.row]
@@ -74,45 +76,6 @@ extension CategoryViewController {
     
 }
 
-// MARK: - SwipeTableViewCellDelegate
-
-extension CategoryViewController: SwipeTableViewCellDelegate {
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
-            guard let self = self else { return }
-            guard let currentCategory = self.categories?[indexPath.row] else { return }
-            
-            self.deleteCategories(category: currentCategory)
-        }
-        
-        deleteAction.image = UIImage(named: "Trash")
-        
-        return [deleteAction]
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        options.expansionStyle = .destructive
-        options.transitionStyle = .border
-        return options
-    }
-
-//    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {
-//        <#code#>
-//    }
-//
-//    func visibleRect(for tableView: UITableView) -> CGRect? {
-//        <#code#>
-//    }
-    
-}
 
 // MARK: - TableView delegate method and navigation segue
 
@@ -164,5 +127,4 @@ extension CategoryViewController {
         tableView.reloadData()
         
     }
-    
 }

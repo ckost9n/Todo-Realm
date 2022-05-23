@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     private var realm = try! Realm()
     
@@ -57,6 +57,11 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true)
     }
     
+    override func updateModel(at indexPath: IndexPath) {
+        guard let item = todoItems?[indexPath.row] else { return }
+        deleteItem(item: item)
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,8 +70,7 @@ class TodoListViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! SwipeTableViewCell
-        cell.delegate = self
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         var content = cell.defaultContentConfiguration()
         
         if let model = todoItems?[indexPath.row] {
@@ -93,45 +97,7 @@ class TodoListViewController: UITableViewController {
 
 }
 
-// MARK: - SwipeTableViewCellDelegate
 
-extension TodoListViewController: SwipeTableViewCellDelegate {
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
-            guard let self = self else { return }
-            guard let currentItem = self.todoItems?[indexPath.row] else { return }
-            
-            self.deleteItem(item: currentItem)
-        }
-        
-        deleteAction.image = UIImage(named: "Trash")
-        
-        return [deleteAction]
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        options.expansionStyle = .destructive
-        options.transitionStyle = .border
-        return options
-    }
-
-//    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {
-//        <#code#>
-//    }
-//
-//    func visibleRect(for tableView: UITableView) -> CGRect? {
-//        <#code#>
-//    }
-    
-}
 
 // MARK: - UISearchBarDelegate
 
@@ -157,9 +123,7 @@ extension TodoListViewController: UISearchBarDelegate {
         DispatchQueue.main.async {
             searchBar.resignFirstResponder()
         }
-        
     }
-    
 }
 
 // MARK: - Model Manupulation Method
