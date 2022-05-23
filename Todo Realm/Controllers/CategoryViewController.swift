@@ -93,10 +93,13 @@ extension CategoryViewController: SwipeTableViewCellDelegate {
         return [deleteAction]
     }
     
-//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-//        <#code#>
-//    }
-//
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
+    }
+
 //    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {
 //        <#code#>
 //    }
@@ -152,7 +155,7 @@ extension CategoryViewController {
         } catch {
             print("Error delete, \(error)")
         }
-        tableView.reloadData()
+        
     }
     
     private func loadCategories() {

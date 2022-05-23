@@ -26,7 +26,7 @@ class TodoListViewController: UITableViewController {
 
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        tableView.rowHeight = 60
+        tableView.rowHeight = 70
         
     }
     
@@ -112,10 +112,13 @@ extension TodoListViewController: SwipeTableViewCellDelegate {
         return [deleteAction]
     }
     
-//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-//        <#code#>
-//    }
-//
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
+    }
+
 //    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {
 //        <#code#>
 //    }
@@ -171,7 +174,6 @@ extension TodoListViewController {
         } catch {
             print("Error delete, \(error)")
         }
-        tableView.reloadData()
     }
     
     private func doneTogle(item: Item) {
