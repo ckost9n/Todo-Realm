@@ -26,8 +26,6 @@ class TodoListViewController: SwipeTableViewController {
 
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        tableView.rowHeight = 70
-        
     }
     
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {

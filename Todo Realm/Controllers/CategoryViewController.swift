@@ -19,8 +19,6 @@ class CategoryViewController: SwipeTableViewController {
         
         navigationController?.navigationBar.setupNavigationBar()
         
-        tableView.rowHeight = 80
-        
         loadCategories()
         
     }
