@@ -15,10 +15,16 @@ class TodoListViewController: SwipeTableViewController {
     
     private var todoItems: Results<Item>?
     
+    @IBOutlet var searchBar: UISearchBar!
+    
     var selectedCategory: Category? {
         didSet {
             loadItems()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar()
     }
 
     override func viewDidLoad() {
@@ -26,6 +32,25 @@ class TodoListViewController: SwipeTableViewController {
 
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
+    }
+    
+    private func setupNavigationBar() {
+        title = selectedCategory?.name
+        guard let barColor = UIColor(hexString: selectedCategory!.hexColor) else { return }
+        let textColor = ContrastColorOf(barColor, returnFlat: true)
+        
+        navigationController?.navigationBar.setupNavigationBar(
+            barColor: barColor,
+            textColor: textColor
+        )
+        
+        searchBar.barTintColor = barColor
+        
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .white
+            textField.tintColor = textColor
+        }
+
     }
     
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
@@ -66,7 +91,6 @@ class TodoListViewController: SwipeTableViewController {
         return todoItems?.count ?? 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         var content = cell.defaultContentConfiguration()

@@ -14,11 +14,14 @@ class CategoryViewController: SwipeTableViewController {
     private let realm = try! Realm()
     
     private var categories: Results<Category>?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar
+            .setupNavigationBar(barColor: .systemBlue, textColor: .white)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.setupNavigationBar()
         
         loadCategories()
         
@@ -69,9 +72,12 @@ extension CategoryViewController {
         if model.hexColor == "" {
             updateHexColor(category: model, hexColor: UIColor.randomFlat().hexValue())
         }
+        let barColor = UIColor(hexString: model.hexColor)!
+        let textColor = ContrastColorOf(barColor, returnFlat: true)
         
-        cell.backgroundColor = UIColor(hexString: model.hexColor)
+        cell.backgroundColor = barColor
         content.text = model.name
+        content.textProperties.color = textColor
         
         cell.contentConfiguration = content
         return cell

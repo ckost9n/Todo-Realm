@@ -9,17 +9,17 @@ import UIKit
 
 extension UINavigationBar {
     
-    public func setupNavigationBar() {
+    public func setupNavigationBar(barColor: UIColor, textColor: UIColor) {
         let coloredAppearance = UINavigationBarAppearance()
         coloredAppearance.configureWithOpaqueBackground()
-        coloredAppearance.backgroundColor = .systemBlue
-        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        coloredAppearance.backgroundColor = barColor
+        coloredAppearance.titleTextAttributes = [.foregroundColor: textColor]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: textColor]
         self.standardAppearance = coloredAppearance
         self.scrollEdgeAppearance = coloredAppearance
 
-        self.tintColor = UIColor.white
-        
+        self.tintColor = textColor
+        self.prefersLargeTitles = true
     }
 }
 
