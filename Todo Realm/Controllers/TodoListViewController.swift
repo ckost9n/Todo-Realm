@@ -7,7 +7,7 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
     
@@ -75,6 +75,13 @@ class TodoListViewController: SwipeTableViewController {
             content.text = model.title
             
             cell.accessoryType = model.done ? .checkmark : .none
+            
+            if let color = (UIColor(hexString: selectedCategory!.hexColor) ?? FlatSkyBlue())
+                .darken(byPercentage: CGFloat(Float(indexPath.row) / Float(todoItems!.count))) {
+                cell.backgroundColor = color
+                content.textProperties.color = ContrastColorOf(color, returnFlat: true)
+            }
+    
         }
 
         cell.contentConfiguration = content
