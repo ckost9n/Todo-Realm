@@ -63,11 +63,15 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.backgroundColor = .randomFlat()
         var content = cell.defaultContentConfiguration()
+        guard let model = categories?[indexPath.row] else { return cell }
         
-        let model = categories?[indexPath.row]
-        content.text = model?.name
+        if model.hexColor == "" {
+            updateHexColor(category: model, hexColor: UIColor.randomFlat().hexValue())
+        }
+        
+        cell.backgroundColor = UIColor(hexString: model.hexColor)
+        content.text = model.name
         
         cell.contentConfiguration = content
         return cell
@@ -118,6 +122,17 @@ extension CategoryViewController {
             print("Error delete, \(error)")
         }
         
+    }
+    
+    private func updateHexColor(category: Category, hexColor: String) {
+        do {
+            try realm.write {
+                category.hexColor = hexColor
+            }
+        } catch {
+            print("Error saving done status, \(error)")
+        }
+        tableView.reloadData()
     }
     
     private func loadCategories() {
